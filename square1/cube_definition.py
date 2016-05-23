@@ -1,7 +1,7 @@
 """Representation for the physical Square1 cube"""
 
 
-class Wedge(Object):
+class Wedge(object):
 
     """A specific wedge in the cube
 
@@ -14,9 +14,16 @@ class Wedge(Object):
         self.position = position
 
 
-class Cube(Object):
+class Cube(object):
 
-    """Contains all the wedges in the cube"""
+    """Contains all the wedges in the cube
 
-    def __init__(self):
-        pass
+    Args:
+      faces (Dict[Str]): Dict of colors for each face of the cube
+    """
+
+    def __init__(self, faces):
+        self.faces = faces
+
+    def __repr__(self):
+        return '<Cube(faces={self.faces})>'.format(self=self)
