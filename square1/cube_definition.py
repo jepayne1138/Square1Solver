@@ -7,11 +7,17 @@ class Wedge(object):
 
     Contains color, position, and wedge angle data"""
 
-    def __init__(self, color_face, color_side, angle, position):
+    def __init__(self, color_face, color_sides):
         self.color_face = color_face
-        self.color_side = color_side
-        self.angle = angle
-        self.position = position
+        self.color_sides = color_sides
+
+    def __repr__(self):
+        return (
+            '<Wedge('
+                'face={self.color_face}, '
+                'sides={self.color_sides}'
+            ')>'
+        ).format(self=self)
 
 
 class Cube(object):
