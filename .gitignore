@@ -1,0 +1,6 @@
+*.pyo
+*.pyd
+*.pyc
+
+# Don't know what this is
+.DS_Store
