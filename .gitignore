@@ -1,6 +1,7 @@
 *.pyo
 *.pyd
 *.pyc
+*.csv
 
 # Don't know what this is
 .DS_Store
