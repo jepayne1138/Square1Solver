@@ -1,9 +1,8 @@
 import csv
-import cube_definition
+import cube_definition as cube_def
 from pprint import pprint
 
 NUM_FACES = 6
-
 
 def read_input(fileobj):
     """Parses an input csv into a Cube instance
@@ -14,8 +13,8 @@ def read_input(fileobj):
     reader = csv.reader(fileobj)
     face_color_dict = {}
     wedges = {
-        'top': [],
-        'bottom': [],
+        cube_def.TOP: [],
+        cube_def.BOTTOM: [],
     }
 
     for line_num, line in enumerate(reader):
@@ -23,9 +22,9 @@ def read_input(fileobj):
             face_color_dict[line[0]] = line[1]
         else:
             wedges[line[0]].append(
-                cube_definition.Wedge(line[1], line[2:])
+                cube_def.Wedge(line[1], line[2:])
             )
 
     # TODO:  Add validation to inputs
-    cube = cube_definition.Cube(face_color_dict)
+    cube = cube_def.Cube(face_color_dict, wedges)
     return cube

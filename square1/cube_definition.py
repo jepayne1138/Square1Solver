@@ -1,5 +1,8 @@
 """Representation for the physical Square1 cube"""
 
+TOP = 'top'
+BOTTOM = 'bottom'
+
 
 class Wedge(object):
 
@@ -28,8 +31,14 @@ class Cube(object):
       faces (Dict[Str]): Dict of colors for each face of the cube
     """
 
-    def __init__(self, faces):
+    def __init__(self, faces, wedges):
         self.faces = faces
+        self.wedges = wedges
 
     def __repr__(self):
-        return '<Cube(faces={self.faces})>'.format(self=self)
+        return (
+            '<Cube('
+                'faces={self.faces}), '
+                'wedges={self.wedges}'
+            '>'
+        ).format(self=self)
