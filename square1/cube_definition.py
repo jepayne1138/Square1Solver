@@ -31,6 +31,7 @@ class Wedge(object):
     def __init__(self, color_face, color_sides, face_color_dict):
         self.color_face = color_face
         self.color_sides = color_sides
+        self.face = face_color_dict[color_face]
         self.name = self.get_name(face_color_dict)
 
     def __repr__(self):
@@ -44,11 +45,8 @@ class Wedge(object):
 
     def get_name(self, face_color_dict):
         """Generates a name based on the colors of the wedge"""
-        return '{face}_{sides}'.format(
-            face=face_color_dict[self.color_face],
-            sides='_'.join(
+        return '_'.join(
                 sorted([face_color_dict[color] for color in self.color_sides])
-            )
         )
 
 
