@@ -28,17 +28,26 @@ class Wedge(object):
       color_side (List[str]): List of colors on the side of the wedge
     """
 
-    def __init__(self, color_face, color_sides):
+    def __init__(self, color_face, color_sides, face_color_dict):
         self.color_face = color_face
         self.color_sides = color_sides
+        self.face = face_color_dict[color_face]
+        self.name = self.get_name(face_color_dict)
 
     def __repr__(self):
         return (
             '<Wedge('
+                'name={self.name}, '
                 'face={self.color_face}, '
                 'sides={self.color_sides}'
             ')>'
         ).format(self=self)
+
+    def get_name(self, face_color_dict):
+        """Generates a name based on the colors of the wedge"""
+        return '_'.join(
+                sorted([face_color_dict[color] for color in self.color_sides])
+        )
 
 
 class Cube(object):

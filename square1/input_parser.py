@@ -22,7 +22,7 @@ def read_input(fileobj):
             face_color_dict[line[0]] = line[1]
         else:
             wedges[line[0]].append(
-                cube_def.Wedge(line[1], line[2:])
+                cube_def.Wedge(line[1], line[2:], face_color_dict)
             )
 
     # TODO:  Add validation to inputs
