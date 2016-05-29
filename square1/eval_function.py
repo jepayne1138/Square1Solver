@@ -11,49 +11,35 @@ correct wedges on each side.
 """
 import itertools
 import cube_definition as cube_def
-
-sides = {
-    'left': 0,
-    'back': 1,
-    'right': 2,
-    'front': 3,
-}
+import correct_alignment as ca
 
 
-def icircle(iterable, start=0):
-    return itertools.islice(
-        itertools.cycle(iterable, start, start+len(iterable))
-    )
+def get_face_max_rel_correct(face, cube):
+    """Returns maximum number of relatively correct wedges for one face
 
-def evaluate1(self, cube):
-    """Returns maximum number of relatively correct wedges
+    Args:
+      face (str): Name of the face to get the best relatively correct for
+      cube (cube_definition.Cube): The cube we are solving
+    """
+    rel_correct_list = []
+    for index, start_wedge in enumerate(cube.wedges[face]):
+        rel_correct = 0
+        running_sum = 0  # Sum of number of sides
+        for wedge in ca.icircle(cube.wedges[face], index):
+            running_sum += len(wedge.color_sides)
+            if ca.distance[face][start_wedge.name][wedge.name] == running_sum:
+                rel_correct += 1
+        rel_correct_list.append(rel_correct)
+    return max(rel_correct_list)
+
+
+def evaluate1(cube):
+    """Returns maximum number of relatively correct wedges on top and bottom
 
     Args:
       cube (cube_definition.Cube): The cube we are solving
     """
-    pass
-    # top_color = cube.faces[cube_def.TOP]
-    # bottom_color = cube.faces[cube_def.BOTTOM]
-
-    # # Number correct starting at each wedge
-    # rel_correct_top = []
-    # visited = []
-    # for wedge in cube.wedges[cube_def.TOP]:
-    #     if wedge.color_face !````= cube.faces[cube_def.TOP]:
-    #         visited.append(wedge)
-    #     if wedge in visited:
-    #         continue
-
-    #     # Wedge not visited and proper color
-    #     rel_correct = 1
-    #     wedge_iter = icircle(
-    #         cube.wedges[cube_def.TOP], cube.wedges[cube_def.TOP].index(wedge)
-    #     )
-    #     side_sum = 0
-    #     for cur_wedge in wedge_iter:
-    #         if cur_wedge in visited:
-    #             continue
-    #         if cur_wedge.color_face != cube.faces[cube_def.TOP]:
-    #             visited.append(cur_wedge)
-
-
+    return (
+        get_face_max_rel_correct(cube_def.TOP, cube) +
+        get_face_max_rel_correct(cube_def.BOTTOM, cube)
+    )
