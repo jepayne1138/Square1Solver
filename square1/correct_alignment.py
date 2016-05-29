@@ -47,8 +47,3 @@ distance = {
     'top': build_side_map_dict(top_side_map),
     'bottom': build_side_map_dict(bottom_side_map),
 }
-
-from pprint import pprint
-pprint(distance)
-
-
