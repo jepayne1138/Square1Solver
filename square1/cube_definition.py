@@ -146,12 +146,18 @@ class Cube(object):
         try:
             ret_val = self.faces == obj.faces
             for key in self.wedges.keys():
-                print self.wedges[key]
-                print obj.wedges[key] * 2
-                print self.wedges[key] == obj.wedges[key]
-                print self.wedges[key] in obj.wedges[key]
-                print (self.wedges[key] in (obj.wedges[key] * 2))
-                ret_val = ret_val and (self.wedges[key] in (obj.wedges[key] * 2))
+                ret_val = ret_val and compare_circular(self.wedges[key], obj.wedges[key])
             return ret_val
         except (AttributeError, KeyError):
             return False
+
+
+def compare_circular(iter1, iter2):
+        try:
+            doubled = iter2 * 2
+            for i in xrange(len(iter1)):
+                if iter1 == doubled[i:i+len(iter1)]:
+                    return True
+        except TypeError:
+            pass
+        return False
