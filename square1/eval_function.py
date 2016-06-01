@@ -13,6 +13,8 @@ import itertools
 import cube_definition as cube_def
 import correct_alignment as ca
 
+EVAL_TARGET = 16
+
 
 def get_face_max_rel_correct(face, cube):
     """Returns maximum number of relatively correct wedges for one face
