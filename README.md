@@ -1,5 +1,5 @@
 ###Square1 Cube Solver
- - Use a decision tree
+This program is intended to be an exercise in applying some of the techniques from my AI course to solving a [Square-1 puzzle](https://en.wikipedia.org/wiki/Square_One_%28puzzle%29).
 
 #Input
 csv file with the following data:
