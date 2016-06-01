@@ -6,7 +6,7 @@ wedge has one color on the side is it a small wedge of 30d, and a large wedge
 of 60d will have two colors as it is always a corner piece.  This means we
 will essentially treat each side color as representing a 30d slice.
 """
-from pprint import pprint
+from pprint import pprint, pformat
 TOP = 'top'
 BOTTOM = 'bottom'
 HALF_COLORS = 6
@@ -37,9 +37,9 @@ class Wedge(object):
     def __repr__(self):
         return (
             '<Wedge('
-                'name={self.name}, '
-                'face={self.color_face}, '
-                'sides={self.color_sides}'
+            'name={self.name: <11}, '
+            'face={self.color_face: <6}, '
+            'sides={self.color_sides}'
             ')>'
         ).format(self=self)
 
@@ -49,6 +49,16 @@ class Wedge(object):
                 sorted([face_color_dict[color] for color in self.color_sides])
         )
 
+    def __eq__(self, obj):
+        try:
+            return (
+                self.name == obj.name and
+                self.color_face == obj.color_face and
+                set(self.color_sides) == set(obj.color_sides) and
+                self.face == obj.face
+            )
+        except AttributeError:
+            return False
 
 class Cube(object):
 
@@ -64,11 +74,14 @@ class Cube(object):
 
     def __repr__(self):
         return (
-            '<Cube('
-                'faces={self.faces}), '
-                'wedges={self.wedges}'
+            '<Cube(\n'
+            '  faces={self.faces})\n'
+            '  wedges=\n{wedges}\n'
             '>'
-        ).format(self=self)
+        ).format(
+            self=self,
+            wedges=pformat(self.wedges)
+        )
 
     def flip(self, top_wedge, bottom_wedge):
         """Flip along the boundary defined by a top and bottom wedge"""
@@ -127,3 +140,18 @@ class Cube(object):
 
     def print_wedges(self):
         pprint(self.wedges)
+
+    def __eq__(self, obj):
+        """Special comparison for the wedge lists"""
+        try:
+            ret_val = self.faces == obj.faces
+            for key in self.wedges.keys():
+                print self.wedges[key]
+                print obj.wedges[key] * 2
+                print self.wedges[key] == obj.wedges[key]
+                print self.wedges[key] in obj.wedges[key]
+                print (self.wedges[key] in (obj.wedges[key] * 2))
+                ret_val = ret_val and (self.wedges[key] in (obj.wedges[key] * 2))
+            return ret_val
+        except (AttributeError, KeyError):
+            return False
